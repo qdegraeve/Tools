@@ -16,7 +16,7 @@ echo '# ************************************************************************
 LIBPATH = libft
 LIB = $(LIBPATH)/libft.a
 '
-echo "NAME = $0
+echo "NAME = $1
 "
 echo 'CC = gcc
 
@@ -43,11 +43,13 @@ $(NAME): $(OBJ)
 $(LIB):
 	make -C $(LIBPATH)
 
-clean:
+clean: $(OBJ)
 	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: all re clean flcean
 '
