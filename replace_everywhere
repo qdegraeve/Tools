@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for file in *.[ch]
+	do
+		sed -i.bck -e "s/a->f_hash/a->f_h/g" $file
+	done
