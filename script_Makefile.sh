@@ -24,7 +24,16 @@ VPATH = src
 
 INCLUDES = include/
 
-CFLAGS = -Wall -Wextra -Werror
+ifdef FLAGS
+	ifeq ($(FLAGS), no)
+		CFLAGS=
+	endif
+	ifeq ($(FLAGS), debug)
+		CFLAGS= -Wall -Wextra -Werror -ansi -pedantic -g
+	endif
+else
+	CFLAGS = -Wall -Wextra -Werror
+endif
 
 LDFLAGS = -L libft -lft
 '
@@ -45,12 +54,12 @@ $(NAME): $(OBJ)
 	$(CC) $(LDFLAGS) -o $@ $^
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I $(INCLUDES) -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c $< -I $(INCLUDES)
 
 $(LIB):
 	make -C $(LIBPATH)
 
-clean: $(OBJ)
+clean:
 	make clean -C $(LIBPATH)
 	rm -f $(OBJ)
 
