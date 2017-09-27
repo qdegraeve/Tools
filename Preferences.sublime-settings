@@ -1,0 +1,18 @@
+{
+	"color_scheme": "Packages/Theme - Spacegray/base16-ocean.dark.tmTheme",
+	"ensure_newline_at_eof_on_save": true,
+	"font_size": 9,
+	"ignored_packages":
+	[
+		"Railscasts Extended",
+		"Vintage"
+	],
+	"rulers":
+	[
+		120
+	],
+	"spacegray_fileicons": true,
+	"tab_size": 2,
+	"theme": "Spacegray.sublime-theme",
+	"translate_tabs_to_spaces": true
+}
