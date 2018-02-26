@@ -31,18 +31,13 @@ def get_db_name():
 		choice = input("Precompile will be done with 'DB_NAME={}', press O for ok, C for change, X for abort : ".format(db_name))
 		try:
 			choice = str(choice).lower()
-			print("choice is ", choice)
 			if len(choice) > 1:
-				print("choice is ", choice)
 				raise ValueError
 			elif choice == "o":
-				print("choice is ", choice)
 				return(db_name)
 			elif choice == "c":
-				print("choice is ", choice)
 				return(input("Enter the db_name you want to use: "))
 			elif choice == "x":
-				print("choice is ", choice)
 				sys.exit(1)
 			else:
 				raise ValueError
@@ -72,9 +67,12 @@ cmds = [
 ]
 
 for cmd in cmds:
-	if os.system(cmd) is not 0:
+	ret = os.system(cmd)
+	if ret != 0:
+		print("return code == ", ret)
 		print("Error while executing cmd : '{}'".format("cmd"))
 	else:
+		print("return code == ", ret)
 		print("{} ==> OK".format(cmd))
 
 
