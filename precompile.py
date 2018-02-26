@@ -67,12 +67,10 @@ cmds = [
 ]
 
 for cmd in cmds:
-	ret = os.system(cmd)
-	if ret != 0:
-		print("return code == ", ret)
+	if os.system(cmd) != 0:
 		print("Error while executing cmd : '{}'".format("cmd"))
+		sys.exit(1)
 	else:
-		print("return code == ", ret)
 		print("{} ==> OK".format(cmd))
 
 
