@@ -4,54 +4,98 @@ read -p 'Nom de la classe: ' class
 echo "#ifndef `echo $class | tr [a-z] [A-Z]`_HPP
 # define `echo $class | tr [a-z] [A-Z]`_HPP
 
+# include <string>
+
 class $class {
 
 public:
 
 	$class(void);
-	$class(int const n);
+	$class(std::string name, int const n);
 	$class($class const & src);
-	~$class();
+	virtual ~$class();
 
-	$class &	operator=($class const & rhs)
+	$class &	operator=($class const & rhs);
+
 	int			get_n(void) const;
+	std::string	get_name(void) const;
 	
 private:
 
+	std::string	_name;
 	int			_n;
 
 };
 
-#endif" >> $class.hpp
+std::ostream &		operator<<(std::ostream & o, $class const & rhs);
+
+#endif" > $class.hpp
 
 echo "#include \"$class.hpp\"
+#include <iostream>
+
+/*************************     CONSTRUCTORS     *******************************/
 
 $class::$class(void) {
+
+	std::cout << \"Default constructor called\" << std::endl;
 	return ;
 }
 
-$class::$class(int const n) : _n(n) {
+$class::$class(std::string name, int const n) : _name(name), _n(n) {
 	return ;
 }
 
 $class::$class($class const & src) {
 
-	*this = src
+	std::cout << \"Copy constructor called\" << std::endl;
+	*this = src;
 
 	return ;
 }
 
-$class::~$class(void) {}
+/*************************     DESTRUCTORS     ********************************/
+
+$class::~$class(void) {
+	std::cout << \"Destructor called\" << std::endl;
+}
+
+/*************************     OPERATORS OVERLOAD     *************************/
 
 $class &	$class::operator=($class const & rhs) {
 
-	if (this != &rhs)
-		this->_n = rhs->get_n();
+	std::cout << \"Assignation operator called\" << std::endl;
+	if (this != &rhs) {
+		this->_n = rhs.get_n();
+		this->_name = rhs.get_name();
+	}
 	
 	return *this;
 }
 
-int			$class::get_n(void) {
+/*************************     GETTERS      ***********************************/
+
+/*************************     SETTERS      ***********************************/
+
+/*************************     PUBLIC MEMBER FUNCTIONS      *******************/
+
+std::string	$class::get_name(void) const {
+	return (this->_name);
+}
+
+int			$class::get_n(void) const {
 	return (this->_n);
 }
-" >> $class.cpp
+
+/*************************     PRIVATE MEMBER FUNCTIONS     *******************/
+
+/*************************     NON MEMBER FUNTIONS     ************************/
+/*************************     EXTERNAL OVERLOADS     *************************/
+
+std::ostream &		operator<<(std::ostream & o, $class const & rhs) {
+	o << rhs.get_name();
+
+	return (o);
+}
+
+" > $class.cpp
