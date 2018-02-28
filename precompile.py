@@ -17,7 +17,7 @@ if "fatal" in branch:
 	os.exit(1)
 
 clobber = "bundle exec rake assets:clobber"
-precompile = "bundle exec rake assets:precombile"
+precompile = "bundle exec rake assets:precompile"
 git = "git add . && git commit -m 'Assets' && git push origin {}".format(branch)
 
 def get_secret_key(env):
