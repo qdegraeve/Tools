@@ -21,28 +21,8 @@ precompile = "bundle exec rake assets:precombile"
 git = "git add . && git commit -m 'Assets' && git push origin {}".format(branch)
 
 def get_secret_key(env):
-	secret_key = input("Type secret key for environment {}".format(env))
+	secret_key = input("Type secret key base for environment {} : ".format(env))
 	return(secret_key)
-
-def get_db_name():
-	app = os.path.basename(os.getcwd())
-	db_name = app + "_development"
-	while True:
-		choice = input("Precompile will be done with 'DB_NAME={}', press O for ok, C for change, X for abort : ".format(db_name))
-		try:
-			choice = str(choice).lower()
-			if len(choice) > 1:
-				raise ValueError
-			elif choice == "o":
-				return(db_name)
-			elif choice == "c":
-				return(input("Enter the db_name you want to use: "))
-			elif choice == "x":
-				sys.exit(1)
-			else:
-				raise ValueError
-		except ValueError:
-			print("Invalid choice -- press only O, C or X")
 
 if args.staging and args.production:
 	print("Only one environment can be chosen at a time")
@@ -57,7 +37,6 @@ elif args.staging:
 else:
 	prefix = ""
 
-prefix += get_db_name()
 precompile = prefix + precompile
 
 cmds = [
